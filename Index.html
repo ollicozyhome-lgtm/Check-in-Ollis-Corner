@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Check-in | Olli's Corner Firenze</title>
+    <style>
+        :root {
+            --primary-color: #8871b9; 
+            --primary-light: #a491cc;
+            --bg-color: #f4f3f8;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-container {
+            background-color: var(--card-bg);
+            max-width: 700px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(136, 113, 185, 0.15);
+            border-top: 8px solid var(--primary-color);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 0;
+        }
+
+        .section-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group { margin-bottom: 15px; }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .guest-section { display: none; }
+        #section-guest-1 { display: block; }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--primary-light);
+        }
+        @media (max-width: 600px) {
+            .grid-2 {
+                grid-template-columns: 1fr; /* Trasforma le 2 colonne in 1 colonna singola */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="header">
+        <h1>Olli's Corner Firenze</h1>
+        <p>Guest Registration / Registrazione Ospiti</p>
+    </div>
+
+    <form id="checkinForm">
+        <input type="hidden" id="portalSource" value="Booking">
+
+        <div class="section-title">Stay Details</div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Arrival Date / Data di Arrivo</label>
+                <input type="date" id="arrivalDate" required>
+            </div>
+            <div class="form-group">
+                <label>Number of Nights / Numero di Notti</label>
+                <input type="number" id="numberOfNights" value="1" min="1" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Total number of guests? / Numero totale di ospiti?</label>
+            <select id="totalGuests" onchange="aggiornaOspiti()">
+                <option value="1">1 Guest / 1 Ospite</option>
+                <option value="2">2 Guests / 2 Ospiti</option>
+                <option value="3">3 Guests / 3 Ospiti</option>
+                <option value="4">4 Guests / 4 Ospiti</option>
+            </select>
+        </div>
+
+        <div id="ospiti-container">
+            <div id="section-guest-1" class="guest-section">
+                <div class="section-title">Guest 1 / Ospite 1 </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g1_firstName" placeholder="e.g. John" required></div>
+                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g1_lastName" placeholder="e.g. Doe" required></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g1_gender" required><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g1_dob" required></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>City of Birth / Luogo Nascita</label><input type="text" id="g1_pob" placeholder="e.g. London / Roma" required></div>
+                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g1_cit" placeholder="e.g. UK / Italia" required></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g1_docT" required><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g1_docN" required></div>
+                </div>
+                <div class="form-group"><label>Upload Document (Photo or PDF) / Carica Documento</label><input type="file" id="g1_photo" accept="image/*,application/pdf" required></div>
+            </div>
+
+            <div id="section-guest-2" class="guest-section">
+                <div class="section-title">Guest 2 / Ospite 2</div>
+                <div class="grid-2">
+                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g2_firstName" placeholder="e.g. Jane"></div>
+                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g2_lastName" placeholder="e.g. Doe"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g2_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g2_dob"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>City of Birth / Luogo Nascita</label><input type="text" id="g2_pob"></div>
+                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g2_cit"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g2_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g2_docN"></div>
+                </div>
+                <div class="form-group"><label>Upload Document (Photo or PDF) / Carica Documento</label><input type="file" id="g2_photo" accept="image/*,application/pdf"></div>
+            </div>
+
+            <div id="section-guest-3" class="guest-section">
+                <div class="section-title">Guest 3 / Ospite 3</div>
+                <div class="grid-2">
+                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g3_firstName"></div>
+                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g3_lastName"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g3_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g3_dob"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>City of Birth / Luogo Nascita</label><input type="text" id="g3_pob"></div>
+                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g3_cit"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g3_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g3_docN"></div>
+                </div>
+                <div class="form-group"><label>Upload Document (Photo or PDF) / Carica Documento</label><input type="file" id="g3_photo" accept="image/*,application/pdf"></div>
+            </div>
+
+            <div id="section-guest-4" class="guest-section">
+                <div class="section-title">Guest 4 / Ospite 4</div>
+                <div class="grid-2">
+                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g4_firstName"></div>
+                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g4_lastName"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g4_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g4_dob"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>City of Birth / Luogo Nascita</label><input type="text" id="g4_pob"></div>
+                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g4_cit"></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g4_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g4_docN"></div>
+                </div>
+                <div class="form-group"><label>Upload Document (Photo or PDF) / Carica Documento</label><input type="file" id="g4_photo" accept="image/*,application/pdf"></div>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Registration / Invia Dati</button>
+    </form>
+</div>
+
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('portalSource').value = (urlParams.get('p') === 'airbnb') ? 'Airbnb' : 'Booking';
+        aggiornaOspiti();
+    };
+
+    function aggiornaOspiti() {
+        const numero = parseInt(document.getElementById('totalGuests').value);
+        for (let i = 1; i <= 4; i++) {
+            const section = document.getElementById('section-guest-' + i);
+            const inputs = section.querySelectorAll('input, select');
+            if (i <= numero) {
+                section.style.display = 'block';
+                inputs.forEach(input => input.setAttribute('required', 'true'));
+            } else {
+                section.style.display = 'none';
+                inputs.forEach(input => input.removeAttribute('required'));
+            }
+        }
+    }
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            if (!file) { resolve(null); return; }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve({
+                name: file.name,
+                mimeType: file.type,
+                base64: reader.result.split(',')[1]
+            });
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    document.getElementById('checkinForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const btn = document.querySelector('.submit-btn');
+        btn.innerText = "Sending... please wait / Invio in corso...";
+        btn.disabled = true;
+
+        try {
+            const numOspiti = parseInt(document.getElementById('totalGuests').value);
+            let payload = {
+                portale: document.getElementById('portalSource').value,
+                arrivalDate: document.getElementById('arrivalDate').value,
+                notti: document.getElementById('numberOfNights').value,
+                totaleOspiti: numOspiti,
+                ospiti: []
+            };
+
+            for(let i = 1; i <= numOspiti; i++) {
+                let fileInput = document.getElementById('g' + i + '_photo');
+                let fileData = await getBase64(fileInput.files[0]);
+                payload.ospiti.push({
+                    nome: document.getElementById('g' + i + '_firstName').value,
+                    cognome: document.getElementById('g' + i + '_lastName').value,
+                    sesso: document.getElementById('g' + i + '_gender').value,
+                    dataNas: document.getElementById('g' + i + '_dob').value,
+                    luogoNas: document.getElementById('g' + i + '_pob').value,
+                    cittadinanza: document.getElementById('g' + i + '_cit').value,
+                    tipoDoc: document.getElementById('g' + i + '_docT').value,
+                    numDoc: document.getElementById('g' + i + '_docN').value,
+                    foto: fileData
+                });
+            }
+
+            // === URL DI GOOGLE ===
+            const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbzpbAOhAfAOiKSXtRo5cnd4mEJ0yAgKY34gj-IX6cHgxu993YMEHxB9iEjx1V9RKY7yzg/exec"; 
+
+            let response = await fetch(GOOGLE_APP_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+
+            let result = await response.json();
+            if(result.status === "success") {
+                alert("Check-in successful! Thank you. / Check-in completato! Grazie.");
+                location.reload();
+            } else {
+                alert("Error / Errore: " + result.message);
+            }
+        } catch(error) {
+            alert("Connection error. Try again. / Errore di connessione. Riprova.");
+        } finally {
+            btn.innerText = "Submit Registration / Invia Dati";
+            btn.disabled = false;
+        }
+    };
+</script>
+
+</body>
+</html>
