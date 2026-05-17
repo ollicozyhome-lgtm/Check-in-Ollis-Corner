@@ -33,21 +33,15 @@
             border-top: 8px solid var(--primary-color);
         }
 
+        /* ── HEADER BANNER CON IMMAGINE DA GITHUB ── */
         .header {
-            text-align: center;
+            background-image: url('banner-checkin.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 220px; /* Altezza ottimale per mostrare la foto e la scritta nitidamente */
+            border-radius: 8px;
             margin-bottom: 30px;
-        }
-
-        .header h1 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            font-size: 28px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 14px;
-            margin-top: 0;
+            box-shadow: 0 4px 12px rgba(136, 113, 185, 0.1);
         }
 
         .section-title {
@@ -108,7 +102,10 @@
         }
         @media (max-width: 600px) {
             .grid-2 {
-                grid-template-columns: 1fr; /* Trasforma le 2 colonne in 1 colonna singola */
+                grid-template-columns: 1fr;
+            }
+            .header {
+                height: 160px; /* Leggermente più basso sui telefoni per non rubare troppo spazio */
             }
         }
     </style>
@@ -116,10 +113,7 @@
 <body>
 
 <div class="form-container">
-    <div class="header">
-        <h1>Olli's Corner Firenze</h1>
-        <p>Guest Registration / Registrazione Ospiti</p>
-    </div>
+    <div class="header"></div>
 
     <form id="checkinForm">
         <input type="hidden" id="portalSource" value="Booking">
@@ -304,7 +298,6 @@
                 });
             }
 
-            // === URL DI GOOGLE ===
             const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbzpbAOhAfAOiKSXtRo5cnd4mEJ0yAgKY34gj-IX6cHgxu993YMEHxB9iEjx1V9RKY7yzg/exec"; 
 
             let response = await fetch(GOOGLE_APP_URL, {
