@@ -349,7 +349,7 @@
             };
 
             for(let i = 1; i <= numOspiti; i++) {
-                let fileInput = document.getElementById('g' + i + 'photo');
+                let fileInput = document.getElementById('g' + i + '_photo');
                 let fileData = await getBase64(fileInput.files[0]);
                 payload.ospiti.push({
                     nome: document.getElementById('g' + i + 'firstName').value,
