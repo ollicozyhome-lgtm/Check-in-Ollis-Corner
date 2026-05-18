@@ -62,7 +62,6 @@
             font-weight: 600;
         }
         
-        /* Titolo sottosezione per staccare Anagrafica da Documenti */
         .sub-section-title {
             color: var(--primary-color);
             font-size: 14px;
@@ -182,7 +181,7 @@
 
                 <div class="sub-section-title">ID Document / Documento d'Identità</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g1_docT" required><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option><option value="DRIVING LICENSE">Driving License / Patente</option></select></div>
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g1_docT" required><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
                     <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g1_docN" required></div>
                 </div>
                 <div class="grid-2">
@@ -215,7 +214,7 @@
 
                 <div class="sub-section-title">ID Document / Documento d'Identità</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g2_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option><option value="DRIVING LICENSE">Driving License / Patente</option></select></div>
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g2_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
                     <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g2_docN"></div>
                 </div>
                 <div class="grid-2">
@@ -248,7 +247,7 @@
 
                 <div class="sub-section-title">ID Document / Documento d'Identità</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g3_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option><option value="DRIVING LICENSE">Driving License / Patente</option></select></div>
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g3_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
                     <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g3_docN"></div>
                 </div>
                 <div class="grid-2">
@@ -281,7 +280,7 @@
 
                 <div class="sub-section-title">ID Document / Documento d'Identità</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g4_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option><option value="DRIVING LICENSE">Driving License / Patente</option></select></div>
+                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g4_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
                     <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g4_docN"></div>
                 </div>
                 <div class="grid-2">
@@ -349,25 +348,26 @@
             };
 
             for(let i = 1; i <= numOspiti; i++) {
+                // IL FIX DEFINITIVO DEI TRATTINI BASSI È QUI SOTTO
                 let fileInput = document.getElementById('g' + i + '_photo');
                 let fileData = await getBase64(fileInput.files[0]);
                 payload.ospiti.push({
-                    nome: document.getElementById('g' + i + 'firstName').value,
-                    cognome: document.getElementById('g' + i + 'lastName').value,
-                    sesso: document.getElementById('g' + i + 'gender').value,
-                    dataNas: document.getElementById('g' + i + 'dob').value,
+                    nome: document.getElementById('g' + i + '_firstName').value,
+                    cognome: document.getElementById('g' + i + '_lastName').value,
+                    sesso: document.getElementById('g' + i + '_gender').value,
+                    dataNas: document.getElementById('g' + i + '_dob').value,
                     
-                    cittadinanza: document.getElementById('g' + i + 'cit').value,
-                    luogoNas: document.getElementById('g' + i + 'pob').value,
+                    cittadinanza: document.getElementById('g' + i + '_cit').value,
+                    luogoNas: document.getElementById('g' + i + '_pob').value,
                     
-                    resStato: document.getElementById('g' + i + 'resState').value,
-                    resComune: document.getElementById('g' + i + 'resCity').value,
+                    resStato: document.getElementById('g' + i + '_resState').value,
+                    resComune: document.getElementById('g' + i + '_resCity').value,
                     
-                    tipoDoc: document.getElementById('g' + i + 'docT').value,
-                    numDoc: document.getElementById('g' + i + 'docN').value,
+                    tipoDoc: document.getElementById('g' + i + '_docT').value,
+                    numDoc: document.getElementById('g' + i + '_docN').value,
                     
-                    docStato: document.getElementById('g' + i + 'docState').value,
-                    docComune: document.getElementById('g' + i + 'docCity').value,
+                    docStato: document.getElementById('g' + i + '_docState').value,
+                    docComune: document.getElementById('g' + i + '_docCity').value,
                     
                     foto: fileData
                 });
