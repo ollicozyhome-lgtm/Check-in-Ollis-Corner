@@ -4,92 +4,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Online Check-in | Olli's Corner Firenze</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #8871b9; 
-            --primary-light: #a491cc;
-            --bg-color: #f4f3f8;
-            --text-color: #333333;
-            --card-bg: #ffffff;
-            --border-color: #ede8f7;
+            --primary: #7c5cbf;
+            --primary-dark: #5a3d99;
+            --primary-light: #f0ecfa;
+            --text-main: #1e1b2e;
+            --text-muted: #7a7490;
+            --bg: #f7f5fc;
+            --white: #ffffff;
+            --border: #ede8f7;
+            --input-bg: #fbfafc;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 20px 15px;
             display: flex;
             justify-content: center;
         }
 
         .form-container {
-            background-color: var(--card-bg);
-            max-width: 700px;
+            background-color: var(--bg);
+            max-width: 750px;
             width: 100%;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(136, 113, 185, 0.12);
-            border-top: 8px solid var(--primary-color);
-            border: 1px solid var(--border-color);
+            border-radius: 16px;
         }
 
+        /* ── HEADER CON FOTO FIRENZE ── */
         .header {
-            background-image: url('banner-checkin.jpg');
-            background-size: contain; 
-            background-position: center top;
-            background-repeat: no-repeat;
-            width: 100%;
-            height: 0; 
-            padding-top: 42.85%; 
-            border-radius: 8px;
+            position: relative;
+            background-image: url('https://raw.githubusercontent.com/ollicozyhome-lgtm/Olli-Cozy-Home/0d5e117c4c10314c0b422b58498bf302fed10f76/immafine-firenze.jpeg');
+            background-size: cover;
+            background-position: center 30%;
+            height: 220px;
+            border-radius: 16px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(136, 113, 185, 0.08);
-            background-color: var(--card-bg); 
+            box-shadow: 0 8px 24px rgba(92, 61, 153, 0.15);
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 25px;
         }
 
-        .section-title {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(30, 27, 46, 0.85) 0%, rgba(30, 27, 46, 0) 100%);
         }
-        
-        .sub-section-title {
-            color: var(--primary-color);
-            font-size: 14px;
+
+        .header-text {
+            position: relative;
+            color: white;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 26px;
             font-weight: 700;
-            margin: 25px 0 10px 0;
-            padding-bottom: 5px;
-            border-bottom: 1px solid var(--border-color);
-            text-transform: uppercase;
+            margin: 0 0 4px 0;
             letter-spacing: 0.5px;
         }
 
-        .form-group { margin-bottom: 15px; }
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* ── CARD SEZIONI ── */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(92, 61, 153, 0.05);
+        }
+
+        .section-title {
+            color: var(--primary-dark);
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .sub-section-title {
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ── INPUT E FORM ── */
+        .form-group { margin-bottom: 18px; }
         
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 600;
             font-size: 13px;
-            color: #555;
+            color: var(--text-main);
         }
 
         input, select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+            padding: 14px 16px;
+            background-color: var(--input-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
             box-sizing: border-box;
             font-family: inherit;
+            font-size: 15px;
+            color: var(--text-main);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            background-color: var(--white);
+            border: 1.5px dashed var(--primary);
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: background 0.2s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #e4dcf5;
         }
 
         .grid-2 {
@@ -101,106 +184,126 @@
         .guest-section { display: none; }
         #section-guest-1 { display: block; }
 
+        /* ── BOTTONE ── */
         .submit-btn {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            padding: 18px;
+            padding: 20px;
             width: 100%;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 40px;
+            margin-top: 10px;
             transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(136, 113, 185, 0.2);
+            box-shadow: 0 8px 20px rgba(92, 61, 153, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-family: inherit;
         }
         
-        .submit-btn:hover {
-            background-color: var(--primary-light);
-            transform: translateY(-2px);
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(92, 61, 153, 0.35);
         }
-        
+
+        .submit-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         @media (max-width: 600px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .form-container { padding: 20px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 0; }
+            .header { height: 180px; padding: 20px; }
+            .header-title { font-size: 22px; }
+            .card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
 <div class="form-container">
-    <div class="header"></div>
+    <div class="header">
+        <div class="header-text">
+            <h1 class="header-title">Olli's Corner Firenze</h1>
+            <p class="header-subtitle">Online Registration / Registrazione Ospiti</p>
+        </div>
+    </div>
 
     <form id="checkinForm">
         <input type="hidden" id="portalSource" value="Booking">
 
-        <div class="section-title">Stay Details / Dettagli Soggiorno</div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Arrival Date / Data di Arrivo</label>
-                <input type="date" id="arrivalDate" required>
+        <div class="card">
+            <div class="section-title"><i class="fa-solid fa-calendar-check"></i> Stay Details / Dettagli Soggiorno</div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Arrival Date / Data di Arrivo</label>
+                    <input type="date" id="arrivalDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Number of Nights / Numero Notti</label>
+                    <input type="number" id="numberOfNights" value="1" min="1" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Number of Nights / Numero di Notti</label>
-                <input type="number" id="numberOfNights" value="1" min="1" required>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Total number of guests? / Numero totale di ospiti?</label>
+                <select id="totalGuests" onchange="aggiornaOspiti()">
+                    <option value="1">1 Guest / 1 Ospite</option>
+                    <option value="2">2 Guests / 2 Ospiti</option>
+                    <option value="3">3 Guests / 3 Ospiti</option>
+                    <option value="4">4 Guests / 4 Ospiti</option>
+                </select>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label>Total number of guests? / Numero totale di ospiti?</label>
-            <select id="totalGuests" onchange="aggiornaOspiti()">
-                <option value="1">1 Guest / 1 Ospite</option>
-                <option value="2">2 Guests / 2 Ospiti</option>
-                <option value="3">3 Guests / 3 Ospiti</option>
-                <option value="4">4 Guests / 4 Ospiti</option>
-            </select>
         </div>
 
         <div id="ospiti-container">
-            <div id="section-guest-1" class="guest-section">
-                <div class="section-title">Guest 1 / Ospite 1 (Main Guest / Capogruppo)</div>
+            <div id="section-guest-1" class="card guest-section">
+                <div class="section-title"><i class="fa-solid fa-user-check"></i> Guest 1 / Ospite 1 <span style="font-size: 13px; color: var(--text-muted); margin-left: 8px; font-weight: 500;">(Main Guest / Capogruppo)</span></div>
                 
-                <div class="sub-section-title">Personal Info / Dati Personali</div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
                 <div class="grid-2">
                     <div class="form-group"><label>First Name / Nome</label><input type="text" id="g1_firstName" placeholder="e.g. John" required></div>
                     <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g1_lastName" placeholder="e.g. Doe" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g1_gender" required><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g1_gender" required><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
                     <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g1_dob" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>State of Birth / Stato di Nascita</label><input type="text" id="g1_cit" placeholder="e.g. UK / Italia" required></div>
-                    <div class="form-group"><label>City of Birth / Comune di Nascita</label><input type="text" id="g1_pob" placeholder="e.g. London / Roma" required></div>
+                    <div class="form-group"><label>State of Birth / Stato di Nascita</label><input type="text" id="g1_cit" placeholder="e.g. Italia / UK" required></div>
+                    <div class="form-group"><label>City of Birth / Comune di Nascita</label><input type="text" id="g1_pob" placeholder="e.g. Roma / London" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>State of Residence / Stato di Residenza</label><input type="text" id="g1_resState" placeholder="e.g. UK / Italia" required></div>
-                    <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g1_resCity" placeholder="e.g. Manchester / Milano" required></div>
+                    <div class="form-group"><label>State of Residence / Stato di Residenza</label><input type="text" id="g1_resState" placeholder="e.g. Italia" required></div>
+                    <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g1_resCity" placeholder="e.g. Milano" required></div>
                 </div>
 
-                <div class="sub-section-title">ID Document / Documento d'Identità</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g1_docT" required><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g1_docN" required></div>
+                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g1_docT" required><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g1_docN" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio Doc.</label><input type="text" id="g1_docState" placeholder="e.g. UK / Italia" required></div>
-                    <div class="form-group"><label>Issuing City (or Authority) / Comune o Ente Rilascio</label><input type="text" id="g1_docCity" placeholder="e.g. London / Comune di Roma" required></div>
+                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g1_docState" placeholder="e.g. Italia" required></div>
+                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g1_docCity" placeholder="e.g. Comune di Roma" required></div>
                 </div>
-                <div class="form-group"><label>Upload both sides of your document / Carica documento fronte/retro</label><input type="file" id="g1_photo" accept="image/*,application/pdf" required></div>
+                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g1_photo" accept="image/*,application/pdf" required></div>
             </div>
 
-            <div id="section-guest-2" class="guest-section">
-                <div class="section-title">Guest 2 / Ospite 2</div>
-                
-                <div class="sub-section-title">Personal Info / Dati Personali</div>
+            <div id="section-guest-2" class="card guest-section">
+                <div class="section-title"><i class="fa-solid fa-user"></i> Guest 2 / Ospite 2</div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g2_firstName" placeholder="e.g. Jane"></div>
-                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g2_lastName" placeholder="e.g. Doe"></div>
+                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g2_firstName"></div>
+                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g2_lastName"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g2_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g2_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
                     <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g2_dob"></div>
                 </div>
                 <div class="grid-2">
@@ -211,29 +314,27 @@
                     <div class="form-group"><label>State of Residence / Stato di Residenza</label><input type="text" id="g2_resState"></div>
                     <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g2_resCity"></div>
                 </div>
-
-                <div class="sub-section-title">ID Document / Documento d'Identità</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g2_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g2_docN"></div>
+                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g2_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g2_docN"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio Doc.</label><input type="text" id="g2_docState"></div>
-                    <div class="form-group"><label>Issuing City (or Authority) / Comune o Ente Rilascio</label><input type="text" id="g2_docCity"></div>
+                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g2_docState"></div>
+                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g2_docCity"></div>
                 </div>
-                <div class="form-group"><label>Upload both sides of your document / Carica documento fronte/retro</label><input type="file" id="g2_photo" accept="image/*,application/pdf"></div>
+                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g2_photo" accept="image/*,application/pdf"></div>
             </div>
 
-            <div id="section-guest-3" class="guest-section">
-                <div class="section-title">Guest 3 / Ospite 3</div>
-                
-                <div class="sub-section-title">Personal Info / Dati Personali</div>
+            <div id="section-guest-3" class="card guest-section">
+                <div class="section-title"><i class="fa-solid fa-user"></i> Guest 3 / Ospite 3</div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
                 <div class="grid-2">
                     <div class="form-group"><label>First Name / Nome</label><input type="text" id="g3_firstName"></div>
                     <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g3_lastName"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g3_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g3_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
                     <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g3_dob"></div>
                 </div>
                 <div class="grid-2">
@@ -244,29 +345,27 @@
                     <div class="form-group"><label>State of Residence / Stato di Residenza</label><input type="text" id="g3_resState"></div>
                     <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g3_resCity"></div>
                 </div>
-
-                <div class="sub-section-title">ID Document / Documento d'Identità</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g3_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g3_docN"></div>
+                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g3_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g3_docN"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio Doc.</label><input type="text" id="g3_docState"></div>
-                    <div class="form-group"><label>Issuing City (or Authority) / Comune o Ente Rilascio</label><input type="text" id="g3_docCity"></div>
+                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g3_docState"></div>
+                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g3_docCity"></div>
                 </div>
-                <div class="form-group"><label>Upload both sides of your document / Carica documento fronte/retro</label><input type="file" id="g3_photo" accept="image/*,application/pdf"></div>
+                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g3_photo" accept="image/*,application/pdf"></div>
             </div>
 
-            <div id="section-guest-4" class="guest-section">
-                <div class="section-title">Guest 4 / Ospite 4</div>
-                
-                <div class="sub-section-title">Personal Info / Dati Personali</div>
+            <div id="section-guest-4" class="card guest-section">
+                <div class="section-title"><i class="fa-solid fa-user"></i> Guest 4 / Ospite 4</div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
                 <div class="grid-2">
                     <div class="form-group"><label>First Name / Nome</label><input type="text" id="g4_firstName"></div>
                     <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g4_lastName"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g4_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Non-Binary / Altro)</option></select></div>
+                    <div class="form-group"><label>Gender / Sesso</label><select id="g4_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
                     <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g4_dob"></div>
                 </div>
                 <div class="grid-2">
@@ -277,21 +376,20 @@
                     <div class="form-group"><label>State of Residence / Stato di Residenza</label><input type="text" id="g4_resState"></div>
                     <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g4_resCity"></div>
                 </div>
-
-                <div class="sub-section-title">ID Document / Documento d'Identità</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo Doc.</label><select id="g4_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero Doc.</label><input type="text" id="g4_docN"></div>
+                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g4_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
+                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g4_docN"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio Doc.</label><input type="text" id="g4_docState"></div>
-                    <div class="form-group"><label>Issuing City (or Authority) / Comune o Ente Rilascio</label><input type="text" id="g4_docCity"></div>
+                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g4_docState"></div>
+                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g4_docCity"></div>
                 </div>
-                <div class="form-group"><label>Upload both sides of your document / Carica documento fronte/retro</label><input type="file" id="g4_photo" accept="image/*,application/pdf"></div>
+                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g4_photo" accept="image/*,application/pdf"></div>
             </div>
         </div>
 
-        <button type="submit" class="submit-btn">Submit Registration / Invia Dati</button>
+        <button type="submit" class="submit-btn" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> Submit Registration</button>
     </form>
 </div>
 
@@ -333,8 +431,8 @@
 
     document.getElementById('checkinForm').onsubmit = async function(e) {
         e.preventDefault();
-        const btn = document.querySelector('.submit-btn');
-        btn.innerText = "Sending... please wait / Invio in corso...";
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending... please wait / Invio in corso...';
         btn.disabled = true;
 
         try {
@@ -348,7 +446,6 @@
             };
 
             for(let i = 1; i <= numOspiti; i++) {
-                // IL FIX DEFINITIVO DEI TRATTINI BASSI È QUI SOTTO
                 let fileInput = document.getElementById('g' + i + '_photo');
                 let fileData = await getBase64(fileInput.files[0]);
                 payload.ospiti.push({
@@ -356,25 +453,20 @@
                     cognome: document.getElementById('g' + i + '_lastName').value,
                     sesso: document.getElementById('g' + i + '_gender').value,
                     dataNas: document.getElementById('g' + i + '_dob').value,
-                    
                     cittadinanza: document.getElementById('g' + i + '_cit').value,
                     luogoNas: document.getElementById('g' + i + '_pob').value,
-                    
                     resStato: document.getElementById('g' + i + '_resState').value,
                     resComune: document.getElementById('g' + i + '_resCity').value,
-                    
                     tipoDoc: document.getElementById('g' + i + '_docT').value,
                     numDoc: document.getElementById('g' + i + '_docN').value,
-                    
                     docStato: document.getElementById('g' + i + '_docState').value,
                     docComune: document.getElementById('g' + i + '_docCity').value,
-                    
                     foto: fileData
                 });
             }
 
+            // IL LINK DEL TUO SCRIPT È GIÀ CORRETTO QUI SOTTO
             const GOOGLE_APP_URL = "https://script.google.com/macros/s/AKfycbwRaKhhaV6CohXtrDJAxKm4DfmZ4F1KLajFyz_Slzc5axY8arSkj_rueQ4AmdzW1P4xJg/exec";
-            
 
             let response = await fetch(GOOGLE_APP_URL, {
                 method: 'POST',
@@ -383,15 +475,20 @@
 
             let result = await response.json();
             if(result.status === "success") {
-                alert("Check-in successful! Thank you. / Check-in completato! Grazie.");
-                location.reload();
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Success! / Completato!';
+                btn.style.background = "var(--success)";
+                setTimeout(() => {
+                    alert("Check-in successful! Thank you. / Check-in completato! Grazie.");
+                    location.reload();
+                }, 500);
             } else {
                 alert("Error / Errore: " + result.message);
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Registration';
+                btn.disabled = false;
             }
         } catch(error) {
             alert("Connection error. Try again. / Errore di connessione. Riprova.");
-        } finally {
-            btn.innerText = "Submit Registration / Invia Dati";
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Registration';
             btn.disabled = false;
         }
     };
