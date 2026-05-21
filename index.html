@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Online Check-in</title>
+    <title>Online Check-in | Olli's Corner Firenze</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -37,12 +37,13 @@
             border-radius: 16px;
         }
 
-        /* ── HEADER CON LA TUA FOTO ORIGINALE ── */
+        /* ── HEADER CON IL TUO NUOVO BANNER DA GITHUB ── */
         .header {
             position: relative;
-            background-image: url('https://raw.githubusercontent.com/ollicozyhome-lgtm/Olli-Cozy-Home/0d5e117c4c10314c0b422b58498bf302fed10f76/immafine-firenze.jpeg');
+            /* Utilizzo del link RAW dell'immagine per corretto caricamento */
+            background-image: url('https://raw.githubusercontent.com/ollicozyhome-lgtm/Check-in-Ollis-Corner/main/banner-checkin.jpg');
             background-size: cover;
-            background-position: center 30%;
+            background-position: center;
             height: 220px;
             border-radius: 16px;
             margin-bottom: 25px;
@@ -53,20 +54,20 @@
             padding: 25px;
         }
 
-        /* Sfumatura alleggerita per far vedere di più la foto */
+        /* Gradiente protettivo per la leggibilità */
         .header::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(30, 27, 46, 0.7) 0%, rgba(30, 27, 46, 0) 50%);
+            background: linear-gradient(to top, rgba(30, 27, 46, 0.8) 0%, rgba(30, 27, 46, 0) 60%);
         }
 
-        /* Ombra sul testo per massima leggibilità */
+        /* Testo con ombra per risaltare sull'immagine */
         .header-text {
             position: relative;
             color: white;
             z-index: 1;
-            text-shadow: 0px 2px 6px rgba(0,0,0,0.8);
+            text-shadow: 0px 2px 8px rgba(0,0,0,0.8);
         }
 
         .header-title {
