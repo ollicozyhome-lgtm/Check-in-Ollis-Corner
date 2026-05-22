@@ -18,6 +18,7 @@
             --white: #ffffff;
             --border: #ede8f7;
             --input-bg: #fbfafc;
+            --success: #28a745;
         }
 
         body {
@@ -37,10 +38,9 @@
             border-radius: 16px;
         }
 
-        /* ── HEADER CON IL TUO NUOVO BANNER DA GITHUB ── */
+        /* ── HEADER ── */
         .header {
             position: relative;
-            /* Utilizzo del link RAW dell'immagine per corretto caricamento */
             background-image: url('https://raw.githubusercontent.com/ollicozyhome-lgtm/Check-in-Ollis-Corner/main/banner-checkin.jpg');
             background-size: cover;
             background-position: center;
@@ -54,7 +54,6 @@
             padding: 25px;
         }
 
-        /* Gradiente protettivo per la leggibilità */
         .header::before {
             content: '';
             position: absolute;
@@ -62,7 +61,6 @@
             background: linear-gradient(to top, rgba(30, 27, 46, 0.8) 0%, rgba(30, 27, 46, 0) 60%);
         }
 
-        /* Testo con ombra per risaltare sull'immagine */
         .header-text {
             position: relative;
             color: white;
@@ -176,16 +174,7 @@
             transition: background 0.2s;
         }
 
-        input[type="file"]::file-selector-button:hover {
-            background-color: #e4dcf5;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .guest-section { display: none; }
         #section-guest-1 { display: block; }
 
@@ -210,17 +199,28 @@
             font-family: inherit;
         }
         
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(92, 61, 153, 0.35);
+        .submit-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(92, 61, 153, 0.35); }
+        .submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* ── MESSAGGIO DI SUCCESSO (Sostituisce l'alert) ── */
+        #success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(92, 61, 153, 0.05);
+            border: 1px solid var(--border);
         }
 
-        .submit-btn:disabled {
-            background: var(--text-muted);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        #success-message i {
+            font-size: 60px;
+            color: var(--success);
+            margin-bottom: 20px;
         }
+
+        #success-message h2 { color: var(--primary-dark); margin: 0 0 10px 0; }
+        #success-message p { color: var(--text-muted); line-height: 1.5; }
 
         @media (max-width: 600px) {
             .grid-2 { grid-template-columns: 1fr; gap: 0; }
@@ -235,181 +235,327 @@
 <div class="form-container">
     <div class="header">
         <div class="header-text">
-            <h1 class="header-title"></h1>
-            <p class="header-subtitle">Check-in Online</p>
+            <h1 class="header-title">Olli's Corner Firenze</h1>
+            <p class="header-subtitle" data-i18n="subtitle">Online Registration</p>
         </div>
+    </div>
+
+    <div id="success-message">
+        <i class="fa-solid fa-circle-check"></i>
+        <h2 data-i18n="successTitle">Check-in Complete!</h2>
+        <p data-i18n="successDesc">Thank you for registering. We look forward to hosting you in Florence.</p>
     </div>
 
     <form id="checkinForm">
         <input type="hidden" id="portalSource" value="Booking">
 
         <div class="card">
-            <div class="section-title"><i class="fa-solid fa-calendar-check"></i> Stay Details / Dettagli Soggiorno</div>
+            <div class="section-title"><i class="fa-solid fa-calendar-check"></i> <span data-i18n="stayDetailsTitle">Stay Details</span></div>
             <div class="grid-2">
                 <div class="form-group">
-                    <label>Arrival Date / Data di Arrivo</label>
-                    <input type="date" id="arrivalDate" required>
+                    <label data-i18n="arrivalDate">Arrival Date</label>
+                    <input type="date" id="arrivalDate" class="req-field" required>
                 </div>
                 <div class="form-group">
-                    <label>Number of Nights / Numero Notti</label>
-                    <input type="number" id="numberOfNights" value="1" min="1" required>
+                    <label data-i18n="numberOfNights">Number of Nights</label>
+                    <input type="number" id="numberOfNights" value="1" min="1" class="req-field" required>
                 </div>
             </div>
             <div class="form-group" style="margin-bottom: 0;">
-                <label>Total number of guests? / Numero totale di ospiti?</label>
+                <label data-i18n="totalGuestsLabel">Total number of guests?</label>
                 <select id="totalGuests" onchange="aggiornaOspiti()">
-                    <option value="1">1 Guest / 1 Ospite</option>
-                    <option value="2">2 Guests / 2 Ospiti</option>
-                    <option value="3">3 Guests / 3 Ospiti</option>
-                    <option value="4">4 Guests / 4 Ospiti</option>
+                    <option value="1" data-i18n="guest1Opt">1 Guest</option>
+                    <option value="2" data-i18n="guest2Opt">2 Guests</option>
+                    <option value="3" data-i18n="guest3Opt">3 Guests</option>
+                    <option value="4" data-i18n="guest4Opt">4 Guests</option>
                 </select>
             </div>
         </div>
 
         <div id="ospiti-container">
             <div id="section-guest-1" class="card guest-section">
-                <div class="section-title"><i class="fa-solid fa-user-check"></i> Guest 1 / Ospite 1 <span style="font-size: 13px; color: var(--text-muted); margin-left: 8px; font-weight: 500;">(Main Guest / Capogruppo)</span></div>
+                <div class="section-title"><i class="fa-solid fa-user-check"></i> <span data-i18n="guest1Title">Guest 1</span> <span style="font-size: 13px; color: var(--text-muted); margin-left: 8px; font-weight: 500;" data-i18n="mainGuest">(Main Guest)</span></div>
                 
-                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g1_firstName" placeholder="e.g. John" required></div>
-                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g1_lastName" placeholder="e.g. Doe" required></div>
+                    <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g1_firstName" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="lastName">Last Name</label><input type="text" id="g1_lastName" class="req-field" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g1_gender" required><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
-                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g1_dob" required></div>
+                    <div class="form-group"><label data-i18n="gender">Gender</label><select id="g1_gender" class="req-field" required><option value="M" data-i18n="genderM">M</option><option value="F" data-i18n="genderF">F</option><option value="X" data-i18n="genderX">X (Other)</option></select></div>
+                    <div class="form-group"><label data-i18n="dob">Date of Birth</label><input type="date" id="g1_dob" class="req-field" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g1_cit" placeholder="e.g. Italia / UK" required></div>
-                    <div class="form-group"><label>Place of Birth / Luogo di Nascita</label><input type="text" id="g1_pob" placeholder="e.g. Roma / London" required></div>
+                    <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g1_cit" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g1_pob" class="req-field" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Country of Residence / Nazione di Residenza</label><input type="text" id="g1_resState" placeholder="e.g. Italia" required></div>
-                    <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g1_resCity" placeholder="e.g. Milano" required></div>
+                    <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g1_resState" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g1_resCity" class="req-field" required></div>
                 </div>
 
-                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g1_docT" required><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g1_docN" required></div>
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g1_docT" class="req-field" required><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g1_docN" class="req-field" required></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g1_docState" placeholder="e.g. Italia" required></div>
-                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g1_docCity" placeholder="e.g. Comune di Roma" required></div>
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g1_docState" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g1_docCity" class="req-field" required></div>
                 </div>
-                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g1_photo" accept="image/*,application/pdf" required></div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g1_photo" accept="image/*,application/pdf" class="req-field" required></div>
             </div>
 
             <div id="section-guest-2" class="card guest-section">
-                <div class="section-title"><i class="fa-solid fa-user"></i> Guest 2 / Ospite 2</div>
-                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
+                <div class="section-title"><i class="fa-solid fa-user"></i> <span data-i18n="guest2Title">Guest 2</span></div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g2_firstName"></div>
-                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g2_lastName"></div>
+                    <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g2_firstName" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="lastName">Last Name</label><input type="text" id="g2_lastName" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g2_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
-                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g2_dob"></div>
+                    <div class="form-group"><label data-i18n="gender">Gender</label><select id="g2_gender" class="req-field"><option value="M" data-i18n="genderM">M</option><option value="F" data-i18n="genderF">F</option><option value="X" data-i18n="genderX">X (Other)</option></select></div>
+                    <div class="form-group"><label data-i18n="dob">Date of Birth</label><input type="date" id="g2_dob" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g2_cit"></div>
-                    <div class="form-group"><label>Place of Birth / Luogo di Nascita</label><input type="text" id="g2_pob"></div>
+                    <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g2_cit" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g2_pob" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Country of Residence / Nazione di Residenza</label><input type="text" id="g2_resState"></div>
-                    <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g2_resCity"></div>
+                    <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g2_resState" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g2_resCity" class="req-field"></div>
                 </div>
-                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g2_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g2_docN"></div>
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g2_docT" class="req-field"><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g2_docN" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g2_docState"></div>
-                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g2_docCity"></div>
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g2_docState" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g2_docCity" class="req-field"></div>
                 </div>
-                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g2_photo" accept="image/*,application/pdf"></div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g2_photo" accept="image/*,application/pdf" class="req-field"></div>
             </div>
 
             <div id="section-guest-3" class="card guest-section">
-                <div class="section-title"><i class="fa-solid fa-user"></i> Guest 3 / Ospite 3</div>
-                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
+                <div class="section-title"><i class="fa-solid fa-user"></i> <span data-i18n="guest3Title">Guest 3</span></div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g3_firstName"></div>
-                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g3_lastName"></div>
+                    <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g3_firstName" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="lastName">Last Name</label><input type="text" id="g3_lastName" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g3_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
-                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g3_dob"></div>
+                    <div class="form-group"><label data-i18n="gender">Gender</label><select id="g3_gender" class="req-field"><option value="M" data-i18n="genderM">M</option><option value="F" data-i18n="genderF">F</option><option value="X" data-i18n="genderX">X (Other)</option></select></div>
+                    <div class="form-group"><label data-i18n="dob">Date of Birth</label><input type="date" id="g3_dob" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g3_cit"></div>
-                    <div class="form-group"><label>Place of Birth / Luogo di Nascita</label><input type="text" id="g3_pob"></div>
+                    <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g3_cit" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g3_pob" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Country of Residence / Nazione di Residenza</label><input type="text" id="g3_resState"></div>
-                    <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g3_resCity"></div>
+                    <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g3_resState" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g3_resCity" class="req-field"></div>
                 </div>
-                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g3_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g3_docN"></div>
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g3_docT" class="req-field"><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g3_docN" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g3_docState"></div>
-                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g3_docCity"></div>
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g3_docState" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g3_docCity" class="req-field"></div>
                 </div>
-                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g3_photo" accept="image/*,application/pdf"></div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g3_photo" accept="image/*,application/pdf" class="req-field"></div>
             </div>
 
             <div id="section-guest-4" class="card guest-section">
-                <div class="section-title"><i class="fa-solid fa-user"></i> Guest 4 / Ospite 4</div>
-                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> Personal Info / Dati Personali</div>
+                <div class="section-title"><i class="fa-solid fa-user"></i> <span data-i18n="guest4Title">Guest 4</span></div>
+                <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>First Name / Nome</label><input type="text" id="g4_firstName"></div>
-                    <div class="form-group"><label>Last Name / Cognome</label><input type="text" id="g4_lastName"></div>
+                    <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g4_firstName" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="lastName">Last Name</label><input type="text" id="g4_lastName" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Gender / Sesso</label><select id="g4_gender"><option value="M">M</option><option value="F">F</option><option value="X">X (Altro)</option></select></div>
-                    <div class="form-group"><label>Date of Birth / Data Nascita</label><input type="date" id="g4_dob"></div>
+                    <div class="form-group"><label data-i18n="gender">Gender</label><select id="g4_gender" class="req-field"><option value="M" data-i18n="genderM">M</option><option value="F" data-i18n="genderF">F</option><option value="X" data-i18n="genderX">X (Other)</option></select></div>
+                    <div class="form-group"><label data-i18n="dob">Date of Birth</label><input type="date" id="g4_dob" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Nationality / Cittadinanza</label><input type="text" id="g4_cit"></div>
-                    <div class="form-group"><label>Place of Birth / Luogo di Nascita</label><input type="text" id="g4_pob"></div>
+                    <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g4_cit" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g4_pob" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Country of Residence / Nazione di Residenza</label><input type="text" id="g4_resState"></div>
-                    <div class="form-group"><label>City of Residence / Comune di Residenza</label><input type="text" id="g4_resCity"></div>
+                    <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g4_resState" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g4_resCity" class="req-field"></div>
                 </div>
-                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> ID Document / Documento</div>
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Doc. Type / Tipo</label><select id="g4_docT"><option value="ID CARD">ID Card / Carta d'Identità</option><option value="PASSPORT">Passport / Passaporto</option></select></div>
-                    <div class="form-group"><label>Doc. Number / Numero</label><input type="text" id="g4_docN"></div>
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g4_docT" class="req-field"><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g4_docN" class="req-field"></div>
                 </div>
                 <div class="grid-2">
-                    <div class="form-group"><label>Issuing State / Stato di Rilascio</label><input type="text" id="g4_docState"></div>
-                    <div class="form-group"><label>Issuing City / Comune di Rilascio</label><input type="text" id="g4_docCity"></div>
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g4_docState" class="req-field"></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g4_docCity" class="req-field"></div>
                 </div>
-                <div class="form-group" style="margin-bottom: 0;"><label>Upload ID Photo / Carica documento (Fronte/Retro)</label><input type="file" id="g4_photo" accept="image/*,application/pdf"></div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g4_photo" accept="image/*,application/pdf" class="req-field"></div>
             </div>
         </div>
 
-        <button type="submit" class="submit-btn" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> Submit Registration</button>
+        <button type="submit" class="submit-btn" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="submitBtn">Submit Registration</span></button>
     </form>
 </div>
 
 <script>
+    // ==========================================
+    // 🌐 DIZIONARIO MULTILINGUA (i18n)
+    // ==========================================
+    const i18n = {
+        en: {
+            subtitle: "Online Registration",
+            stayDetailsTitle: "Stay Details",
+            arrivalDate: "Arrival Date",
+            numberOfNights: "Number of Nights",
+            totalGuestsLabel: "Total number of guests?",
+            guest1Opt: "1 Guest",
+            guest2Opt: "2 Guests",
+            guest3Opt: "3 Guests",
+            guest4Opt: "4 Guests",
+            guest1Title: "Guest 1",
+            guest2Title: "Guest 2",
+            guest3Title: "Guest 3",
+            guest4Title: "Guest 4",
+            mainGuest: "(Main Guest)",
+            personalInfo: "Personal Info",
+            firstName: "First Name",
+            lastName: "Last Name",
+            gender: "Gender",
+            genderM: "M",
+            genderF: "F",
+            genderX: "X (Other)",
+            dob: "Date of Birth",
+            nationality: "Nationality",
+            pob: "Town/City of Birth",
+            resCountry: "Country of Residence",
+            resCity: "City of Residence",
+            idDocument: "ID Document",
+            docType: "Document Type",
+            docTypeIdCard: "National ID Card",
+            docTypePassport: "Passport",
+            docNumber: "Document Number",
+            issuingCountry: "Issuing Country",
+            issuingCity: "Issuing Authority/Office",
+            uploadPhoto: "Upload ID Photo (Front/Back)",
+            submitBtn: "Submit Registration",
+            placeholderFirstName: "e.g. John",
+            placeholderLastName: "e.g. Doe",
+            placeholderCit: "e.g. United Kingdom",
+            placeholderPob: "e.g. London",
+            placeholderResCountry: "e.g. United Kingdom",
+            placeholderResCity: "e.g. Manchester",
+            placeholderDocState: "e.g. United Kingdom",
+            placeholderDocCity: "e.g. HM Passport Office",
+            btnSending: "Sending... please wait",
+            successTitle: "Check-in Complete!",
+            successDesc: "Thank you for registering. We look forward to hosting you in Florence."
+        },
+        it: {
+            subtitle: "Registrazione Ospiti",
+            stayDetailsTitle: "Dettagli Soggiorno",
+            arrivalDate: "Data di Arrivo",
+            numberOfNights: "Numero Notti",
+            totalGuestsLabel: "Numero totale di ospiti?",
+            guest1Opt: "1 Ospite",
+            guest2Opt: "2 Ospiti",
+            guest3Opt: "3 Ospiti",
+            guest4Opt: "4 Ospiti",
+            guest1Title: "Ospite 1",
+            guest2Title: "Ospite 2",
+            guest3Title: "Ospite 3",
+            guest4Title: "Ospite 4",
+            mainGuest: "(Capogruppo)",
+            personalInfo: "Dati Personali",
+            firstName: "Nome",
+            lastName: "Cognome",
+            gender: "Sesso",
+            genderM: "M",
+            genderF: "F",
+            genderX: "X (Altro)",
+            dob: "Data di Nascita",
+            nationality: "Cittadinanza",
+            pob: "Luogo di Nascita (Comune/Stato)",
+            resCountry: "Nazione di Residenza",
+            resCity: "Comune di Residenza",
+            idDocument: "Documento di Identità",
+            docType: "Tipo Documento",
+            docTypeIdCard: "Carta d'Identità",
+            docTypePassport: "Passaporto",
+            docNumber: "Numero Documento",
+            issuingCountry: "Stato di Rilascio",
+            issuingCity: "Comune/Autorità di Rilascio",
+            uploadPhoto: "Carica Foto Documento (Fronte/Retro)",
+            submitBtn: "Invia Registrazione",
+            placeholderFirstName: "es. Mario",
+            placeholderLastName: "es. Rossi",
+            placeholderCit: "es. Italiana",
+            placeholderPob: "es. Roma",
+            placeholderResCountry: "es. Italia",
+            placeholderResCity: "es. Milano",
+            placeholderDocState: "es. Italia",
+            placeholderDocCity: "es. Comune di Roma",
+            btnSending: "Invio in corso...",
+            successTitle: "Check-in Completato!",
+            successDesc: "Grazie per esserti registrato. Non vediamo l'ora di ospitarti a Firenze."
+        }
+    };
+
+    // Logica di Fallback Robusta (Default Inglese, Italiano solo se esplicito)
+    let currentLang = 'en';
+
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         document.getElementById('portalSource').value = (urlParams.get('p') === 'airbnb') ? 'Airbnb' : 'Booking';
+        
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang.toLowerCase().startsWith('it')) {
+            currentLang = 'it';
+        }
+        
+        applyTranslations();
         aggiornaOspiti();
     };
 
+    function applyTranslations() {
+        const langData = i18n[currentLang];
+        
+        // Traduzione testi normali (Inclusi i tag <option>)
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (langData[key]) {
+                // innerText è più sicuro di textContent per le opzioni delle tendine sui vecchi browser
+                element.innerText = langData[key];
+            }
+        });
+
+        // Traduzione Placeholder
+        for(let i=1; i<=4; i++) {
+            if(document.getElementById(`g${i}_firstName`)) document.getElementById(`g${i}_firstName`).placeholder = langData.placeholderFirstName;
+            if(document.getElementById(`g${i}_lastName`)) document.getElementById(`g${i}_lastName`).placeholder = langData.placeholderLastName;
+            if(document.getElementById(`g${i}_cit`)) document.getElementById(`g${i}_cit`).placeholder = langData.placeholderCit;
+            if(document.getElementById(`g${i}_pob`)) document.getElementById(`g${i}_pob`).placeholder = langData.placeholderPob;
+            if(document.getElementById(`g${i}_resState`)) document.getElementById(`g${i}_resState`).placeholder = langData.placeholderResCountry;
+            if(document.getElementById(`g${i}_resCity`)) document.getElementById(`g${i}_resCity`).placeholder = langData.placeholderResCity;
+            if(document.getElementById(`g${i}_docState`)) document.getElementById(`g${i}_docState`).placeholder = langData.placeholderDocState;
+            if(document.getElementById(`g${i}_docCity`)) document.getElementById(`g${i}_docCity`).placeholder = langData.placeholderDocCity;
+        }
+    }
+
+    // Gestione visualizzazione ospiti - Ora richiede solo gli elementi con classe "req-field"
     function aggiornaOspiti() {
         const numero = parseInt(document.getElementById('totalGuests').value);
         for (let i = 1; i <= 4; i++) {
             const section = document.getElementById('section-guest-' + i);
-            const inputs = section.querySelectorAll('input, select');
+            // Prende solo i campi con la classe 'req-field' invece di tutti gli input alla cieca
+            const inputs = section.querySelectorAll('.req-field');
+            
             if (i <= numero) {
                 section.style.display = 'block';
                 inputs.forEach(input => input.setAttribute('required', 'true'));
@@ -437,7 +583,9 @@
     document.getElementById('checkinForm').onsubmit = async function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending... please wait / Invio in corso...';
+        const langData = i18n[currentLang];
+        
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span style="margin-left:8px;">${langData.btnSending}</span>`;
         btn.disabled = true;
 
         try {
@@ -478,21 +626,21 @@
             });
 
             let result = await response.json();
+            
+            // Addio noiosi Alert! Benvenuta schermata di successo
             if(result.status === "success") {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Success! / Completato!';
-                btn.style.background = "var(--success)";
-                setTimeout(() => {
-                    alert("Check-in successful! Thank you. / Check-in completato! Grazie.");
-                    location.reload();
-                }, 500);
+                document.getElementById('checkinForm').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                // Riporta l'utente in cima alla pagina per fargli leggere il messaggio
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                alert("Error / Errore: " + result.message);
-                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Registration';
+                alert("Error: " + result.message);
+                btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span style="margin-left:8px;">${langData.submitBtn}</span>`;
                 btn.disabled = false;
             }
         } catch(error) {
-            alert("Connection error. Try again. / Errore di connessione. Riprova.");
-            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Registration';
+            alert("Connection error. Try again.");
+            btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span style="margin-left:8px;">${langData.submitBtn}</span>`;
             btn.disabled = false;
         }
     };
