@@ -303,6 +303,7 @@
 
             <div id="section-guest-2" class="card guest-section">
                 <div class="section-title"><i class="fa-solid fa-user"></i> <span data-i18n="guest2Title">Guest 2</span></div>
+                
                 <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
                     <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g2_firstName" class="req-field" required></div>
@@ -316,14 +317,26 @@
                     <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g2_cit" class="req-field" required></div>
                     <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g2_pob" class="req-field" required></div>
                 </div>
-                <div class="grid-2" style="margin-bottom: 0;">
+                <div class="grid-2">
                     <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g2_resState" class="req-field" required></div>
                     <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g2_resCity" class="req-field" required></div>
                 </div>
+
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
+                <div class="grid-2">
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g2_docT" class="req-field" required><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g2_docN" class="req-field" required></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g2_docState" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g2_docCity" class="req-field" required></div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g2_photo" accept="image/*,application/pdf" class="req-field" required></div>
             </div>
 
             <div id="section-guest-3" class="card guest-section">
                 <div class="section-title"><i class="fa-solid fa-user"></i> <span data-i18n="guest3Title">Guest 3</span></div>
+                
                 <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
                     <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g3_firstName" class="req-field" required></div>
@@ -337,14 +350,26 @@
                     <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g3_cit" class="req-field" required></div>
                     <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g3_pob" class="req-field" required></div>
                 </div>
-                <div class="grid-2" style="margin-bottom: 0;">
+                <div class="grid-2">
                     <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g3_resState" class="req-field" required></div>
                     <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g3_resCity" class="req-field" required></div>
                 </div>
+
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
+                <div class="grid-2">
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g3_docT" class="req-field" required><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g3_docN" class="req-field" required></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g3_docState" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g3_docCity" class="req-field" required></div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g3_photo" accept="image/*,application/pdf" class="req-field" required></div>
             </div>
 
             <div id="section-guest-4" class="card guest-section">
                 <div class="section-title"><i class="fa-solid fa-user"></i> <span data-i18n="guest4Title">Guest 4</span></div>
+                
                 <div class="sub-section-title"><i class="fa-solid fa-address-card"></i> <span data-i18n="personalInfo">Personal Info</span></div>
                 <div class="grid-2">
                     <div class="form-group"><label data-i18n="firstName">First Name</label><input type="text" id="g4_firstName" class="req-field" required></div>
@@ -358,10 +383,21 @@
                     <div class="form-group"><label data-i18n="nationality">Nationality</label><input type="text" id="g4_cit" class="req-field" required></div>
                     <div class="form-group"><label data-i18n="pob">Town/City of Birth</label><input type="text" id="g4_pob" class="req-field" required></div>
                 </div>
-                <div class="grid-2" style="margin-bottom: 0;">
+                <div class="grid-2">
                     <div class="form-group"><label data-i18n="resCountry">Country of Residence</label><input type="text" id="g4_resState" class="req-field" required></div>
                     <div class="form-group"><label data-i18n="resCity">City of Residence</label><input type="text" id="g4_resCity" class="req-field" required></div>
                 </div>
+
+                <div class="sub-section-title"><i class="fa-solid fa-passport"></i> <span data-i18n="idDocument">ID Document</span></div>
+                <div class="grid-2">
+                    <div class="form-group"><label data-i18n="docType">Doc. Type</label><select id="g4_docT" class="req-field" required><option value="ID CARD" data-i18n="docTypeIdCard">National ID Card</option><option value="PASSPORT" data-i18n="docTypePassport">Passport</option></select></div>
+                    <div class="form-group"><label data-i18n="docNumber">Doc. Number</label><input type="text" id="g4_docN" class="req-field" required></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label data-i18n="issuingCountry">Issuing Country</label><input type="text" id="g4_docState" class="req-field" required></div>
+                    <div class="form-group"><label data-i18n="issuingCity">Issuing Authority/Office</label><input type="text" id="g4_docCity" class="req-field" required></div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;"><label data-i18n="uploadPhoto">Upload ID Photo (Front/Back)</label><input type="file" id="g4_photo" accept="image/*,application/pdf" class="req-field" required></div>
             </div>
         </div>
 
@@ -555,7 +591,7 @@
                 let fileInput = document.getElementById('g' + i + '_photo');
                 let fileData = fileInput && fileInput.files[0] ? await getBase64(fileInput.files[0]) : null;
                 
-                // Costruisce la riga in modo che passi valori vuoti per i documenti degli ospiti 2,3,4 senza rompere Excel
+                // Tutti i campi sono ora presenti per ogni ospite, li raccogliamo direttamente
                 payload.ospiti.push({
                     nome: document.getElementById('g' + i + '_firstName').value,
                     cognome: document.getElementById('g' + i + '_lastName').value,
@@ -565,10 +601,10 @@
                     luogoNas: document.getElementById('g' + i + '_pob').value,
                     resStato: document.getElementById('g' + i + '_resState').value,
                     resComune: document.getElementById('g' + i + '_resCity').value,
-                    tipoDoc: document.getElementById('g' + i + '_docT') ? document.getElementById('g' + i + '_docT').value : "",
-                    numDoc: document.getElementById('g' + i + '_docN') ? document.getElementById('g' + i + '_docN').value : "",
-                    docStato: document.getElementById('g' + i + '_docState') ? document.getElementById('g' + i + '_docState').value : "",
-                    docComune: document.getElementById('g' + i + '_docCity') ? document.getElementById('g' + i + '_docCity').value : "",
+                    tipoDoc: document.getElementById('g' + i + '_docT').value,
+                    numDoc: document.getElementById('g' + i + '_docN').value,
+                    docStato: document.getElementById('g' + i + '_docState').value,
+                    docComune: document.getElementById('g' + i + '_docCity').value,
                     foto: fileData
                 });
             }
